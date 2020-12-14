@@ -20,3 +20,6 @@ executable AOC
   build-depends:       base >= 4.7 && < 5
                      , split
                      , microlens-platform
+                     , megaparsec
+                     , parser-combinators
+                     , pretty-simple
