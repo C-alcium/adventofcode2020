@@ -40,7 +40,6 @@ parseDirections = do
   _                  <- eof 
   return (rowInstructions, columnInstructions)
 
-
 convertRowToNumber :: String -> Int
 convertRowToNumber xs = read ( (show . head) (convert xs rows)) :: Int 
   where
@@ -49,7 +48,6 @@ convertRowToNumber xs = read ( (show . head) (convert xs rows)) :: Int
       'B' -> dropFront rs 
     convert [] rs     = rs 
     convert (x:xs) rs = convert xs (step x rs) 
-    
 
 convertColumnToNumber :: String -> Int
 convertColumnToNumber xs = read ( (show . head) (convert xs columns)) :: Int 
