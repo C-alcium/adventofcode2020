@@ -6,6 +6,7 @@ import Data.Void
 import Control.Monad.Combinators
 import Text.Megaparsec
 import Data.Maybe
+import Data.Sort
 
 type Parser = Parsec Void String
 
@@ -20,7 +21,9 @@ main = do
   inputs <- lines <$> readFile "input.txt"
   let parsedInputs = map directionalResult inputs 
   let res1 = solve1 parsedInputs
+  let res2 = solve2 parsedInputs
   print res1 
+  print res2 
 
 dropBack :: [a] -> [a]
 dropBack [] = []
@@ -62,3 +65,10 @@ solve1 :: [(String, String)] -> Int
 solve1 xs = maximum $ map toID xs
   where
     toID (a, b) = convertRowToNumber a * 8 + convertColumnToNumber b
+
+solve2 :: [(String, String)] -> Int
+solve2 xs = head $ filter (`notElem` sorted) full 
+  where
+    toID (a, b) = convertRowToNumber a * 8 + convertColumnToNumber b
+    sorted = sort $ map toID xs 
+    full = [(head sorted)..(last sorted)] 
