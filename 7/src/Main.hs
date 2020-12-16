@@ -31,9 +31,8 @@ main = do
 canContainMyBag :: Map.Map String [Maybe (Int, String)] -> String -> Bool
 canContainMyBag m k = case Map.lookup k m of
   Nothing    -> False 
-  Just rules -> if any (\ (_, b) -> b == myBag) (values rules)
-                then True 
-                else any (canContainMyBag m) (keys (values rules))
+  Just rules -> any (\ (_, b) -> b == myBag) (values rules) 
+             || any (canContainMyBag m) (keys (values rules))
   where
     values r = catMaybes r 
     keys     = map snd 
