@@ -46,9 +46,9 @@ pLine = do
   key   <- manyTill anySingle (string "contain")
   raw   <- manyTill anySingle eof 
   let left = contents raw 
-  return (clean key, left)
+  return (toKey key, left)
   where 
-    clean s = reverse $ drop 4 $ reverse $ filter (\a -> a /= ' ' && a /= ',' && a /= '.') s 
+    toKey s = (reverse . drop 4 . reverse . clean) s 
     contents :: String -> [String]
     contents s  
       | "," `isInfixOf` s = splitOn "," s  
@@ -61,5 +61,6 @@ pRule = do
   bag      <- manyTill anySingle (string " bag")
   _        <- manyTill anySingle eof 
   return (read quantity :: Int, clean bag)
-  where
-    clean = filter (\a -> a /= ' ' && a /= ',' && a /= '.')
+
+clean :: String -> String 
+clean = filter (\a -> a /= ' ' && a /= ',' && a /= '.')
