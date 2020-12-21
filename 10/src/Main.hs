@@ -2,15 +2,17 @@
 
 module Main where
 
+import Data.List 
+
 main :: IO ()
 main = do
   input <- lines <$> readFile "input.txt"
   let numbers = map (\ a -> read a :: Int) input
-  let res1 = solve1 numbers 
+  let res1    = solve1 numbers
   print res1 
+  print (sort numbers)
+  print (length numbers)
  
-  
-
 solve1 :: [Int] -> Int 
 solve1 xs = solve xs 0 0 0 
   where
